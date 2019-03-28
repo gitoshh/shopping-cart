@@ -18,7 +18,8 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Create a new category
+     * Create a new category.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function createNewCategory(): \Illuminate\Http\JsonResponse
@@ -26,21 +27,22 @@ class CategoriesController extends Controller
         try {
             $this->validate($this->request, [
                 'parentId' => 'required',
-                'name' => 'required',
+                'name'     => 'required',
             ]);
         } catch (ValidationException $e) {
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 400);
         }
 
-        $parentId =  $this->request->get('parentId');
-        DB::statement('call tree_traversal(?, ?, ?)',['insert', 0, $parentId]);
-        $lastNode= Node::latest()->first(['nodeID'])->toArray();
+        $parentId = $this->request->get('parentId');
+        DB::statement('call tree_traversal(?, ?, ?)', ['insert', 0, $parentId]);
+        $lastNode = Node::latest()->first(['nodeID'])->toArray();
         $category = Category::firstOrCreate([
             'categoryName' => $this->request->get('name'),
-            'nodeID' => $lastNode['nodeID']
+            'nodeID'       => $lastNode['nodeID'],
         ]);
+
         return response()->json($category->toArray(), 200);
     }
 }

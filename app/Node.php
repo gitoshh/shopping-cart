@@ -8,6 +8,7 @@ class Node extends Model
 {
     /**
      * The  associated database table.
+     *
      * @var string
      */
     protected $table = 'nodes';
@@ -18,7 +19,7 @@ class Node extends Model
      * @var array
      */
     protected $fillable = [
-        'lft', 'rgt', 'parenID'
+        'lft', 'rgt', 'parenID',
     ];
 
     /**
