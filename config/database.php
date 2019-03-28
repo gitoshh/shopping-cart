@@ -3,8 +3,8 @@
 return [
 
     /*
-	| PDO Fetch Style
-	*/
+    | PDO Fetch Style
+    */
     'fetch' => PDO::FETCH_CLASS,
 
     /*
@@ -20,7 +20,7 @@ return [
         'sqlite' => [
             'driver'    => 'sqlite',
             'database'  => ':memory:',
-            'prefix'   => env('DB_PREFIX', ''),
+            'prefix'    => env('DB_PREFIX', ''),
             ],
 
         'mysql' => [
@@ -35,27 +35,27 @@ return [
             'prefix'    => env('DB_PREFIX', ''),
             'timezone'  => env('DB_TIMEZONE', '+00:00'),
             'strict'    => env('DB_STRICT_MODE', false),
-            'options'=> [
-                1002 => 'SET NAMES utf8',  #initial query
-                1000 => true
-            ]
-        ]
+            'options'   => [
+                1002 => 'SET NAMES utf8',  //initial query
+                1000 => true,
+            ],
+        ],
     ],
 
     /*
-	| Migration Repository Table
-	*/
-	'migrations' => 'migrations',
+    | Migration Repository Table
+    */
+    'migrations' => 'migrations',
 
-	/*
-	| Redis Databases
-	*/
-	'redis' => [
+    /*
+    | Redis Databases
+    */
+    'redis' => [
     'cluster' => false,
     'default' => [
         'host'     => '127.0.0.1',
         'port'     => 6379,
         'database' => 0,
-        ]
-    ]
+        ],
+    ],
 ];
