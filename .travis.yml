@@ -16,5 +16,14 @@ before_script:
   - npm install npm@latest -g
   - npm install -g jshint
 
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS travis;'
+
 script:
-  - vendor/bin/phpunit --coverage-text
+  - php vendor/bin/phpunit -c phpunit.xml
+
+services:
+  - mysql
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls
