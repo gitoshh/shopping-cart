@@ -2,9 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\GenerateAppKeyCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
-use App\Console\Commands\GenerateAppKeyCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -20,7 +20,8 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     *
      * @return void
      */
     protected function schedule(Schedule $schedule)

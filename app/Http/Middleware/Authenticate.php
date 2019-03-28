@@ -21,7 +21,8 @@ class Authenticate
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
+     * @param \Illuminate\Contracts\Auth\Factory $auth
+     *
      * @return void
      */
     public function __construct(Auth $auth)
@@ -32,31 +33,32 @@ class Authenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     * @param string|null              $guard
+     *
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
     {
         $token = $request->get('token');
 
-        if(!$token) {
+        if (!$token) {
             // Unauthorized response if token not there
             return response()->json([
-                'error' => 'Token not provided.'
+                'error' => 'Token not provided.',
             ], 401);
         }
 
         try {
             $credentials = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
-        } catch(ExpiredException $e) {
+        } catch (ExpiredException $e) {
             return response()->json([
-                'error' => 'Provided token is expired.'
+                'error' => 'Provided token is expired.',
             ], 400);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
-                'error' => 'An error while decoding token.'
+                'error' => 'An error while decoding token.',
             ], 400);
         }
 
