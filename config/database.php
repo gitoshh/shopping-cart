@@ -10,7 +10,7 @@ return [
     /*
     | Default Database Connection Name
     */
-    'default' => 'sqlite',
+    'default' => 'mysql',
 
     /*
     | Database Connections
@@ -35,8 +35,12 @@ return [
             'prefix'    => env('DB_PREFIX', ''),
             'timezone'  => env('DB_TIMEZONE', '+00:00'),
             'strict'    => env('DB_STRICT_MODE', false),
-            ],
-        ],
+            'options'=> [
+                1002 => 'SET NAMES utf8',  #initial query
+                1000 => true
+            ]
+        ]
+    ],
 
     /*
 	| Migration Repository Table
