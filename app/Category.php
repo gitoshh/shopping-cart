@@ -8,6 +8,7 @@ class Category extends Model
 {
     /**
      * The  associated database table.
+     *
      * @var string
      */
     protected $table = 'categories';
@@ -18,7 +19,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'categoryName', 'rgt', 'nodeID'
+        'categoryName', 'rgt', 'nodeID',
     ];
 
     /**

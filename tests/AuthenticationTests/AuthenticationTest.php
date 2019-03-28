@@ -20,7 +20,7 @@ class AuthenticationTest extends BaseTest
     {
         $userCredentials = [
             'email'    => 'fake.test@gmail.com',
-            'password' => '1231234'
+            'password' => '1231234',
         ];
         $response = $this->call('POST', '/auth/login', $userCredentials);
         $this->assertEquals(400, $response->status());
@@ -31,7 +31,7 @@ class AuthenticationTest extends BaseTest
     {
         $userCredentials = [
             'email'    => 'test@gmail.com',
-            'password' => '1231234'
+            'password' => '1231234',
         ];
         $response = $this->call('POST', '/auth/login', $userCredentials);
         $this->assertEquals(401, $response->status());
@@ -42,7 +42,7 @@ class AuthenticationTest extends BaseTest
     {
         $userCredentials = [
             'email'    => 'test@gmail.com',
-            'password' => '123123'
+            'password' => '123123',
         ];
         $response = $this->call('POST', '/auth/login', $userCredentials);
         $this->assertContains('token', $response->content());

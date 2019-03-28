@@ -5,12 +5,10 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
-
 /**
- * Class GenerateAppKeyCommand
+ * Class GenerateAppKeyCommand.
  *
  * @category Console_Command
- * @package  App\Console\Commands
  */
 class GenerateAppKeyCommand extends Command
 {
@@ -28,7 +26,6 @@ class GenerateAppKeyCommand extends Command
      */
     protected $description = 'Generate new API key';
 
-
     /**
      * Execute the console command.
      *
@@ -37,6 +34,7 @@ class GenerateAppKeyCommand extends Command
     public function handle()
     {
         echo Str::random(32).PHP_EOL;
+
         return true;
     }
 }

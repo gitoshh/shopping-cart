@@ -13,6 +13,7 @@ class UserController extends Controller
 
     /**
      * UserController constructor.
+     *
      * @param Request $request
      */
     public function __construct(Request $request)
@@ -22,20 +23,21 @@ class UserController extends Controller
 
     /**
      * Add a new instance of a user.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function createNewUser(): \Illuminate\Http\JsonResponse
     {
         try {
             $this->validate($this->request, [
-                'email' => 'required|email',
+                'email'     => 'required|email',
                 'firstName' => 'required',
-                'lastName' => 'required',
-                'password' => 'required'
+                'lastName'  => 'required',
+                'password'  => 'required',
             ]);
         } catch (ValidationException $e) {
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 400);
         }
 
@@ -44,7 +46,7 @@ class UserController extends Controller
             'firstName'  => $this->request->firstName,
             'lastName'   => $this->request->lastName,
             'middleName' => $this->request->middleName ?? null,
-            'password'   => Hash::make($this->request->password)
+            'password'   => Hash::make($this->request->password),
         ];
         $user = User::firstOrCreate($userAttributes);
         if ($user) {
