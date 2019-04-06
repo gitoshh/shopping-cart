@@ -1,3 +1,4 @@
+
 CREATE PROCEDURE `tree_traversal`(
   IN ptask_type VARCHAR(10),
   IN pnode_id INT,

@@ -20,4 +20,5 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'categories'], function () use ($router) {
     $router->post('/', 'categoriesController@createNewCategory');
+    $router->put('/{categoryId}', 'categoriesController@updateCategory');
 });

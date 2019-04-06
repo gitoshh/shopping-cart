@@ -21,4 +21,8 @@ class CategoryControllerTest extends BaseTest
         $response = $this->call('POST', '/categories', $categoryPayload);
         $this->assertEquals(400, $response->status());
     }
+
+    public function testUpdateCategorySuccessful(): void
+    {
+    }
 }

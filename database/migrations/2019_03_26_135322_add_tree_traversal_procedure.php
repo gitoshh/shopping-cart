@@ -11,7 +11,7 @@ class AddTreeTraversalProcedure extends Migration
      */
     public function up(): void
     {
-        DB::unprepared('DROP procedure IF EXISTS procedure_name');
+        DB::unprepared('DROP PROCEDURE IF EXISTS tree_traversal');
         DB::unprepared(file_get_contents(base_path('database/sql/traversal_procedure.sql')));
     }
 
@@ -22,6 +22,6 @@ class AddTreeTraversalProcedure extends Migration
      */
     public function down(): void
     {
-        DB::unprepared('DROP PROCEDURE `tree_traversal`;');
+        DB::unprepared('DROP PROCEDURE IF EXISTS tree_traversal;');
     }
 }
