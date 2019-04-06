@@ -17,3 +17,8 @@ $router->post('/auth/login', 'AuthController@authenticate');
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'categories'], function () use ($router) {
+    $router->post('/', 'categoriesController@createNewCategory');
+    $router->put('/{categoryId}', 'categoriesController@updateCategory');
+});
