@@ -30,7 +30,7 @@ class UserController extends Controller
     {
         try {
             $this->validate($this->request, [
-                'email'     => 'required|email',
+                'email'     => 'required|email|unique:users',
                 'firstName' => 'required',
                 'lastName'  => 'required',
                 'password'  => 'required',

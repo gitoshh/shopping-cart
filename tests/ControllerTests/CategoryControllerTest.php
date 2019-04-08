@@ -2,14 +2,29 @@
 
 class CategoryControllerTest extends BaseTest
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $userCredentials = [
+            'email'    => 'test@gmail.com',
+            'password' => '123123',
+        ];
+        $response = $this->call('POST', '/auth/login', $userCredentials);
+
+        $this->headers = [
+            'Authorization' => json_decode($response->getContent())->token,
+        ];
+    }
+
     public function testNewCategoryCreationSuccessfully(): void
     {
         $categoryPayload = [
-            'name'     => 'Electronics',
-            'parentId' => 1,
+            'categoryName' => 'Electronics',
+            'parentId'     => 1,
         ];
-        $response = $this->call('POST', '/categories', $categoryPayload);
-        $this->assertEquals(200, $response->status());
+        $this->post('/categories', $categoryPayload, $this->headers);
+        $this->assertResponseOk();
         $this->seeInDatabase('nodes', ['parentID' => 1]);
     }
 
@@ -18,7 +33,7 @@ class CategoryControllerTest extends BaseTest
         $categoryPayload = [
             'parentId' => 1,
         ];
-        $response = $this->call('POST', '/categories', $categoryPayload);
-        $this->assertEquals(400, $response->status());
+        $this->post('/categories', $categoryPayload, $this->headers);
+        $this->assertResponseStatus(400);
     }
 }

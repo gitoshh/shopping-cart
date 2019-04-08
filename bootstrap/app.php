@@ -62,7 +62,7 @@ $app->singleton(
 // ]);
 
  $app->routeMiddleware([
-     'auth' => App\Http\Middleware\Authenticate::class,
+     'auth' => App\Http\Middleware\AuthenticateMiddleware::class,
  ]);
 
 /*
@@ -93,8 +93,8 @@ $app->singleton(
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
+], function () {
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;

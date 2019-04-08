@@ -26,7 +26,7 @@ class UserTest extends BaseTest
             'password'   => '1231234',
         ];
         $response = $this->call('POST', '/users', $userCredentials);
-        $this->assertEquals(500, $response->status());
+        $this->assertEquals(400, $response->status());
     }
 
     public function testInvalidDataUserCreation(): void

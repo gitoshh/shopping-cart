@@ -8,20 +8,21 @@ use Exception;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
-class Authenticate
+class AuthenticateMiddleware
 {
     /**
      * The authentication guard factory instance.
      *
-     * @var \Illuminate\Contracts\Auth\Factory
+     * @var Auth
      */
     protected $auth;
 
     /**
      * Create a new middleware instance.
      *
-     * @param \Illuminate\Contracts\Auth\Factory $auth
+     * @param Auth $auth
      *
      * @return void
      */
@@ -33,25 +34,37 @@ class Authenticate
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     * @param string|null              $guard
+     * @param Request     $request
+     * @param Closure     $next
+     * @param string|null $guard
      *
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $token = $request->get('token');
-
-        if (!$token) {
+        if (!isset($request->headers->all()['authorization'])) {
             // Unauthorized response if token not there
             return response()->json([
-                'error' => 'Token not provided.',
+                'error' => 'Authorization token not provided.',
             ], 401);
         }
 
+        $token = $request->headers->all()['authorization'];
+        $token = $token[0];
+
         try {
             $credentials = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
+            $user = User::find($credentials->sub);
+            if ($user) {
+                // Add the current user to the request
+                $this->auth = $user;
+
+                return $next($request);
+            }
+
+            return response()->json([
+                'error' => 'Unauthorized',
+            ], 401);
         } catch (ExpiredException $e) {
             return response()->json([
                 'error' => 'Provided token is expired.',
@@ -61,11 +74,5 @@ class Authenticate
                 'error' => 'An error while decoding token.',
             ], 400);
         }
-
-        $user = User::find($credentials->sub);
-        // Add the current user to the request
-        $this->auth = $user;
-
-        return $next($request);
     }
 }

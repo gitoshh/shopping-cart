@@ -2,20 +2,6 @@
 
 class AuthenticationTest extends BaseTest
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testAuthenticate(): void
-    {
-        $this->get('/');
-
-        $this->assertEquals(
-            $this->app->version(), $this->response->getContent()
-        );
-    }
-
     public function testUnExistingUserLogin(): void
     {
         $userCredentials = [
