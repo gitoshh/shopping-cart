@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class CategoriesController extends Controller
 {
-    private $request;
+    public $request;
     private $categoryDomain;
 
     /**
@@ -20,11 +20,11 @@ class CategoriesController extends Controller
      */
     public function __construct(Request $request, CategoryDomain $categoryDomain)
     {
-        $this->request = $request;
+        parent::__construct($request);
         $this->categoryDomain = $categoryDomain;
     }
 
-    public function FetchCategories()
+    public function fetchCategories()
     {
         $categories = $this->categoryDomain->getAllCategories();
 
@@ -41,7 +41,7 @@ class CategoriesController extends Controller
      *
      * @return JsonResponse
      */
-    public function FetchCategoryById($categoryId)
+    public function fetchCategoryById($categoryId)
     {
         $category = $this->categoryDomain->getCategoryById($categoryId);
         if ($category) {

@@ -15,8 +15,14 @@ Route::post('/users', 'UserController@createNewUser');
 Route::post('/auth/login', 'AuthController@authenticate');
 
 Route::group(['middleware' => 'auth'], function () {
+    // Categories
     Route::post('/categories', 'categoriesController@createNewCategory');
-    Route::get('/categories', 'categoriesController@FetchCategories');
-    Route::get('/categories/{categoryId}', 'categoriesController@FetchCategoryById');
+    Route::get('/categories', 'categoriesController@fetchCategories');
+    Route::get('/categories/{categoryId}', 'categoriesController@fetchCategoryById');
     Route::delete('/categories/{categoryId}', 'categoriesController@removeCategory');
+
+    // Items
+    Route::get('/items', 'ItemsController@fetchItems');
+    Route::post('/items', 'ItemsController@createNewItem');
+    Route::delete('/items/{itemId}', 'ItemsController@deleteItem');
 });

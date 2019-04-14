@@ -11,9 +11,27 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+use App\Item;
+use App\User;
+use Faker\Generator;
+
+$factory->define(User::class, function (Generator $faker) {
     return [
-        'name'  => $faker->name,
-        'email' => $faker->email,
+        'firstName'  => $faker->firstName,
+        'lastName'   => $faker->lastName,
+        'middleName' => $faker->randomLetter,
+        'email'      => $faker->email,
+        'password'   => $faker->password,
+    ];
+});
+
+$factory->define(Item::class, function (Generator $faker) {
+    return [
+        'itemName'    => $faker->text(10),
+        'imageUrl'    => $faker->url,
+        'cost'        => $faker->numberBetween(10, 200),
+        'quantity'    => $faker->numberBetween(1, 10),
+        'description' => $faker->sentence,
+        'categoryID'  => 1,
     ];
 });

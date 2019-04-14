@@ -46,6 +46,13 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+// Add facades
+
+$app->withFacades(true,
+    [
+        Zizaco\Entrust\EntrustFacade::class => 'Entrust',
+    ]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -76,8 +83,10 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+ $app->register(App\Providers\AppServiceProvider::class);
+ $app->register(App\Providers\AuthServiceProvider::class);
+ $app->register(Zizaco\Entrust\EntrustServiceProvider::class);
+
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
