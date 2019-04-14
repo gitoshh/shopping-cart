@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    private $request;
+    public $request;
 
     /**
      * UserController constructor.
@@ -18,19 +19,19 @@ class UserController extends Controller
      */
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        parent::__construct($request);
     }
 
     /**
      * Add a new instance of a user.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function createNewUser(): \Illuminate\Http\JsonResponse
+    public function createNewUser(): JsonResponse
     {
         try {
             $this->validate($this->request, [
-                'email'     => 'required|email',
+                'email'     => 'required|email|unique:users',
                 'firstName' => 'required',
                 'lastName'  => 'required',
                 'password'  => 'required',

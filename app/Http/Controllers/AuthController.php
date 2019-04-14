@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\User;
 use Exception;
 use Firebase\JWT\JWT;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    private $request;
+    public $request;
 
     /**
      * AuthController constructor.
@@ -20,7 +21,7 @@ class AuthController extends Controller
      */
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        parent::__construct($request);
     }
 
     /**
@@ -28,9 +29,9 @@ class AuthController extends Controller
      *
      * @throws Exception
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function authenticate(): \Illuminate\Http\JsonResponse
+    public function authenticate(): JsonResponse
     {
         // Validate request payload
         try {
