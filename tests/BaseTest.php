@@ -9,6 +9,16 @@ class BaseTest extends TestCase
         parent::setUp();
         Artisan::call('migrate:refresh');
         Artisan::call('db:seed');
+
+        $userCredentials = [
+            'email'    => 'test@gmail.com',
+            'password' => '123123',
+        ];
+        $response = $this->call('POST', '/auth/login', $userCredentials);
+
+        $this->headers = [
+            'Authorization' => json_decode($response->getContent())->token,
+        ];
     }
 
     public function tearDown(): void

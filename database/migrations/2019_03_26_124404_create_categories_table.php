@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('categoryID');
-            $table->string('categoryName');
+            $table->string('categoryName')->unique();
             $table->unsignedBigInteger('nodeID');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
