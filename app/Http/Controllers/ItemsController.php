@@ -24,6 +24,11 @@ class ItemsController extends Controller
         $this->itemDomain = $itemDomain;
     }
 
+    /**
+     * Retrieves all items.
+     *
+     * @return JsonResponse
+     */
     public function fetchItems()
     {
         $response = $this->itemDomain->allItems();
@@ -34,8 +39,21 @@ class ItemsController extends Controller
         ], 200);
     }
 
+    /**
+     * Retrieve shopping item given id.
+     *
+     * @param int $itemId
+     *
+     * @return JsonResponse
+     */
     public function fetchItemById(int $itemId)
     {
+        $response = $this->itemDomain->getItemById($itemId);
+
+        return response()->json([
+            'message' => 'success',
+            'data'    => $response->toArray(),
+        ], 200);
     }
 
     /**
